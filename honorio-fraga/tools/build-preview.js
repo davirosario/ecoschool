@@ -152,7 +152,7 @@ const router = `
    ela abre sem internet e em qualquer visualizador (app do Claude,
    celular, e-mail). Sem a pasta, usa os links da internet (CDN). */
 const VENDOR = path.join(__dirname, 'vendor');
-const INLINE = !FRAGMENT && fs.existsSync(VENDOR);
+const INLINE = fs.existsSync(VENDOR);
 const vendorB64 = (rel) => fs.readFileSync(path.join(VENDOR, rel)).toString('base64');
 const vendorText = (rel) => fs.readFileSync(path.join(VENDOR, rel), 'utf8').replace(/<\/script/gi, '<\\/script');
 
@@ -187,9 +187,17 @@ if (INLINE) {
 const THEME_INIT = "<script>try{var t=JSON.parse(localStorage.getItem('hf_theme'));if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>";
 
 // Ícones SVG do Font Awesome dimensionados como a fonte
-const FA_SVG_CSS = FRAGMENT ? '\n.svg-inline--fa{height:1em;width:auto;overflow:visible;vertical-align:-.125em;display:inline-block}' : '';
+const FA_SVG_CSS = FRAGMENT && !INLINE ? '\n.svg-inline--fa{height:1em;width:auto;overflow:visible;vertical-align:-.125em;display:inline-block}' : '';
 
 /* ---------- 6. Montagem ---------- */
+// Faixa de aviso só na versão publicada como artefato
+const DEV_BANNER = FRAGMENT
+  ? '<div class="dev-banner" role="note"><i class="fa-solid fa-flask" aria-hidden="true"></i> Prévia de desenvolvimento do site — conteúdo demonstrativo, nada aqui é enviado à escola.</div>'
+  : '';
+const DEV_BANNER_CSS = FRAGMENT
+  ? '\n.dev-banner{display:flex;gap:8px;align-items:center;justify-content:center;padding:8px max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px));background:var(--c-warning-soft);color:var(--c-ink);font-size:.8rem;font-weight:600;text-align:center}.dev-banner i{color:var(--c-warning)}'
+  : '';
+
 const headInner = `<title>EEEFM Honório Fraga</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Prévia do site institucional da EEEFM Honório Fraga — Colatina, ES.">
@@ -197,10 +205,10 @@ ${FONT_TAGS}
 ${ICON_TAGS}
 ${THEME_INIT}
 <style>
-${css}${FA_SVG_CSS}
+${css}${FA_SVG_CSS}${DEV_BANNER_CSS}
 </style>`;
 
-const bodyInner = `<div id="app"></div>
+const bodyInner = `${DEV_BANNER}<div id="app"></div>
 ${templates}
 <script>window.HF_PREVIEW = true; window.ASSET_MAP = ${JSON.stringify(assetMap)};</script>
 ${LIB_TAGS}
