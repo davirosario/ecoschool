@@ -24,6 +24,8 @@ O arquivo **`preview/index.html`** é uma versão completa do site em **um únic
    - iPhone: salve em **Arquivos** → toque no arquivo (abre no visualizador) → compartilhar → abrir no Safari.
 3. Navegue normalmente: as páginas viram rotas como `#noticias`, `#noticia-3`, `#eventos-calendario`.
 
+A prévia **não precisa de internet**: fontes, ícones, GSAP e Three.js ficam embutidos nela (copiados de `tools/vendor/`). Por isso ela abre igual no celular, no app do Claude ou anexada num e-mail.
+
 Para gerar a prévia de novo depois de editar o site (precisa do [Node.js](https://nodejs.org)):
 
 ```bash
@@ -89,7 +91,9 @@ honorio-fraga/
 │
 ├── backend/README.md     Plano para o backend e banco de dados
 ├── preview/index.html    Prévia em arquivo único (gerada)
-└── tools/build-preview.js  Gera a prévia
+└── tools/
+    ├── build-preview.js  Gera a prévia
+    └── vendor/           Bibliotecas copiadas para embutir na prévia (o site usa CDN)
 ```
 
 Cada página HTML tem `<body data-page="...">`. O arquivo `js/main.js` usa esse valor para chamar a função certa. Header e rodapé são gerados por `js/menu.js` — **o menu é editado em um só lugar** (`NAV_ITEMS`).

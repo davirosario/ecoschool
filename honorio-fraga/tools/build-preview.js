@@ -147,27 +147,54 @@ const router = `
   mount();
 })();`;
 
-/* ---------- 5. Montagem ---------- */
-const FONTS = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap';
-// No modo fragmento usamos o Font Awesome em JS (substitui os <i> por SVG)
-const ICONS = FRAGMENT
-  ? '<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>'
-  : '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">';
+/* ---------- 5. Bibliotecas (fontes, ícones, GSAP, Three.js) ----------
+   Se a pasta tools/vendor/ existir, tudo é EMBUTIDO no arquivo da prévia:
+   ela abre sem internet e em qualquer visualizador (app do Claude,
+   celular, e-mail). Sem a pasta, usa os links da internet (CDN). */
+const VENDOR = path.join(__dirname, 'vendor');
+const INLINE = !FRAGMENT && fs.existsSync(VENDOR);
+const vendorB64 = (rel) => fs.readFileSync(path.join(VENDOR, rel)).toString('base64');
+const vendorText = (rel) => fs.readFileSync(path.join(VENDOR, rel), 'utf8').replace(/<\/script/gi, '<\\/script');
+
+let FONT_TAGS, ICON_TAGS, LIB_TAGS;
+if (INLINE) {
+  const face = (family, file, weight) =>
+    `@font-face{font-family:'${family}';font-style:normal;font-weight:${weight};font-display:swap;src:url(data:font/woff2;base64,${vendorB64('fonts/' + file)}) format('woff2')}`;
+  const fontCss = [
+    face('Bricolage Grotesque', 'bricolage-grotesque.woff2', '200 800'),
+    ...[400, 500, 600, 700].map((w) => face('Figtree', `figtree-${w}.woff2`, w)),
+    ...[500, 600].map((w) => face('IBM Plex Mono', `ibm-plex-mono-${w}.woff2`, w))
+  ].join('\n');
+  // Font Awesome: troca os arquivos de fonte por data URI (só woff2)
+  const faCss = fs.readFileSync(path.join(VENDOR, 'fontawesome.min.css'), 'utf8')
+    .replace(/src:url\(\.\.\/webfonts\/([\w-]+)\.woff2\) format\("woff2"\),url\(\.\.\/webfonts\/\1\.ttf\) format\("truetype"\)/g,
+      (m, name) => `src:url(data:font/woff2;base64,${vendorB64('webfonts/' + name + '.woff2')}) format("woff2")`);
+  FONT_TAGS = `<style>/* Fontes (SIL Open Font License) */\n${fontCss}</style>`;
+  ICON_TAGS = `<style>/* Font Awesome Free 6.5.1 — https://fontawesome.com/license/free */\n${faCss}</style>`;
+  LIB_TAGS = ['gsap.min.js', 'ScrollTrigger.min.js', 'three.min.js']
+    .map((f) => `<script>/* tools/vendor/${f} */\n${vendorText(f)}\n</script>`).join('\n');
+} else {
+  const FONTS = 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap';
+  FONT_TAGS = `<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link rel="stylesheet" href="${FONTS}">`;
+  // No modo fragmento usamos o Font Awesome em JS (substitui os <i> por SVG)
+  ICON_TAGS = FRAGMENT
+    ? '<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>'
+    : '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">';
+  LIB_TAGS = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'].map((u) => `<script src="${u}"></script>`).join('\n');
+}
 const THEME_INIT = "<script>try{var t=JSON.parse(localStorage.getItem('hf_theme'));if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>";
-const LIBS = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'].map((u) => `<script src="${u}"></script>`).join('\n');
 
 // Ícones SVG do Font Awesome dimensionados como a fonte
 const FA_SVG_CSS = FRAGMENT ? '\n.svg-inline--fa{height:1em;width:auto;overflow:visible;vertical-align:-.125em;display:inline-block}' : '';
 
+/* ---------- 6. Montagem ---------- */
 const headInner = `<title>EEEFM Honório Fraga</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Prévia do site institucional da EEEFM Honório Fraga — Colatina, ES.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="${FONTS}">
-${ICONS}
+${FONT_TAGS}
+${ICON_TAGS}
 ${THEME_INIT}
 <style>
 ${css}${FA_SVG_CSS}
@@ -176,7 +203,7 @@ ${css}${FA_SVG_CSS}
 const bodyInner = `<div id="app"></div>
 ${templates}
 <script>window.HF_PREVIEW = true; window.ASSET_MAP = ${JSON.stringify(assetMap)};</script>
-${LIBS}
+${LIB_TAGS}
 <script>
 ${js}
 </script>
@@ -200,4 +227,4 @@ ${bodyInner}
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, out);
-console.log(`Prévia gerada: ${path.relative(process.cwd(), OUT)} (${(out.length / 1024).toFixed(0)} KB)`);
+console.log(`Prévia gerada: ${path.relative(process.cwd(), OUT)} (${(out.length / 1024).toFixed(0)} KB)${INLINE ? ' — bibliotecas embutidas, funciona sem internet' : ''}`);
