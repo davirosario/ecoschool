@@ -1267,6 +1267,7 @@ body:not(.admin-body)::before {
 .feature__title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--c-ink); }
 .feature__desc { font-size: var(--fs-sm); color: var(--c-muted); margin: 0; }
 .feature__tag { position: absolute; top: 18px; right: 18px; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--c-warning-soft); color: var(--c-warning); }
+.feature__tag--ext { background: var(--c-primary-soft); color: var(--c-primary-text); }
 .feature__go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 650; font-size: var(--fs-sm); color: var(--c-primary-text); }
 .feature-grid > li { min-width: 0; }
 
@@ -1519,6 +1520,12 @@ body:not(.admin-body)::before {
 .login-status p { margin: 0 0 10px; display: flex; gap: 8px; align-items: flex-start; }
 .login-status i { color: var(--c-accent-text); margin-top: 4px; }
 .login-status__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Atalho para o SEGES (sistema de notas da SEDU-ES) na página de login */
+.seges-link { display: flex; gap: 12px; align-items: center; margin: 0 0 18px; padding: 14px 16px; border-radius: var(--radius); border: 1px solid var(--c-line); background: var(--c-primary-soft); color: var(--c-ink); text-decoration: none; font-size: var(--fs-sm); transition: border-color .2s, transform .2s var(--ease); }
+.seges-link:hover { border-color: var(--c-primary-text); color: var(--c-ink); transform: translateY(-1px); }
+.seges-link__icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 11px; background: var(--c-primary); color: var(--c-on-primary); }
+.seges-link em { font-style: normal; font-weight: 700; color: var(--c-primary-text); white-space: nowrap; }
 
 /* ==== css/admin.css ==== */
 /* =====================================================================
@@ -1886,7 +1893,7 @@ body:not(.admin-body)::before {
         <ul class="quick__grid" data-reveal-stagger>
           <li><a class="quick-card quick-card--primary" href="alunos.html" data-tilt="6">
             <span class="quick-card__icon"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></span>
-            <span class="quick-card__text"><span class="quick-card__title">Portal do Aluno</span><span class="quick-card__desc">Boletim, frequência, horários, materiais e comunicados.</span></span>
+            <span class="quick-card__text"><span class="quick-card__title">Portal do Aluno</span><span class="quick-card__desc">Boletim (SEGES), frequência, horários e materiais.</span></span>
             <i class="fa-solid fa-arrow-right quick-card__arrow" aria-hidden="true"></i>
           </a></li>
           <li><a class="quick-card" href="responsaveis.html" data-tilt="6">
@@ -2393,21 +2400,21 @@ body:not(.admin-body)::before {
         </nav>
         <span class="eyebrow" data-reveal>Área do Aluno</span>
         <h1 data-reveal>Área do Aluno</h1>
-        <p data-reveal>Boletim, frequência, horários, materiais, comunicados e eventos em um só lugar.</p>
+        <p data-reveal>Boletim, frequência, horários, materiais e eventos em um só lugar.</p>
       </div>
     </section>
     <section class="section">
       <div class="container">
         <div class="session-banner" id="session-banner"></div>
         <ul class="feature-grid" id="student-cards" data-reveal-stagger>
-          <li><button type="button" class="feature" data-feature="boletim" data-tilt="5"><span class="feature__tag">Requer backend</span>
+          <li><a class="feature feature--external" href="https://seges.sedu.es.gov.br/users/sign_in" data-href-config="links.seges" target="_blank" rel="noopener noreferrer" data-tilt="5"><span class="feature__tag feature__tag--ext">SEGES</span>
             <span class="feature__icon"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></span>
-            <span class="feature__title">Boletim</span><span class="feature__desc">Notas por componente e período.</span>
-            <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
-          <li><button type="button" class="feature" data-feature="frequencia" data-tilt="5"><span class="feature__tag">Requer backend</span>
+            <span class="feature__title">Boletim</span><span class="feature__desc">Notas e boletim no SEGES, o sistema da Secretaria de Educação (SEDU-ES).</span>
+            <span class="feature__go">Acessar o SEGES <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span></a></li>
+          <li><a class="feature feature--external" href="https://chamadaescol-rtzkxa4t.manus.space/" data-href-config="links.frequencia" target="_blank" rel="noopener noreferrer" data-tilt="5"><span class="feature__tag feature__tag--ext">Site externo</span>
             <span class="feature__icon"><i class="fa-solid fa-user-check" aria-hidden="true"></i></span>
-            <span class="feature__title">Frequência</span><span class="feature__desc">Presenças e faltas registradas.</span>
-            <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
+            <span class="feature__title">Frequência</span><span class="feature__desc">Presenças e faltas no sistema de chamada da escola.</span>
+            <span class="feature__go">Abrir frequência <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></span></a></li>
           <li><a class="feature" href="eventos.html#calendario" data-tilt="5">
             <span class="feature__icon"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></span>
             <span class="feature__title">Calendário</span><span class="feature__desc">Provas, eventos e feriados.</span>
@@ -2416,39 +2423,25 @@ body:not(.admin-body)::before {
             <span class="feature__icon"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
             <span class="feature__title">Horários</span><span class="feature__desc">Quadro de aulas da turma.</span>
             <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
-          <li><button type="button" class="feature" data-feature="comunicados-alunos" data-tilt="5">
-            <span class="feature__icon"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i></span>
-            <span class="feature__title">Comunicados</span><span class="feature__desc">Avisos para estudantes.</span>
-            <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
           <li><button type="button" class="feature" data-feature="materiais" data-tilt="5"><span class="feature__tag">Requer backend</span>
             <span class="feature__icon"><i class="fa-solid fa-book" aria-hidden="true"></i></span>
             <span class="feature__title">Materiais</span><span class="feature__desc">Conteúdos enviados pelos professores.</span>
             <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
-          <li><a class="feature" href="documentos.html" data-tilt="5">
-            <span class="feature__icon"><i class="fa-solid fa-file-lines" aria-hidden="true"></i></span>
-            <span class="feature__title">Documentos</span><span class="feature__desc">Formulários e documentos escolares.</span>
-            <span class="feature__go">Acessar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a></li>
           <li><a class="feature" href="eventos.html" data-tilt="5">
             <span class="feature__icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
             <span class="feature__title">Eventos</span><span class="feature__desc">Atividades e eventos da escola.</span>
             <span class="feature__go">Acessar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></a></li>
         </ul>
         <section class="card" style="margin-top:40px" aria-labelledby="dev-title">
-          <h2 id="dev-title" style="font-size:var(--fs-md)"><i class="fa-solid fa-code" aria-hidden="true"></i> Para a equipe de TI: o que depende de backend</h2>
+          <h2 id="dev-title" style="font-size:var(--fs-md)"><i class="fa-solid fa-code" aria-hidden="true"></i> Para a equipe de TI</h2>
           <ul>
-            <li><strong>Login real</strong> com perfis (aluno, responsável) — <code>POST /api/auth/login</code>.</li>
-            <li><strong>Boletim e frequência</strong> — integração com o sistema oficial de notas/diário (<code>GET /api/alunos/:id/boletim</code>).</li>
+            <li><strong>Boletim</strong> abre o SEGES e <strong>Frequência</strong> abre o sistema de chamada. Os endereços ficam em <code>js/data.js</code> (<code>SITE_CONFIG.links</code>).</li>
+            <li><strong>Login próprio do site</strong> (se um dia for necessário) depende de backend — <code>POST /api/auth/login</code>.</li>
             <li><strong>Materiais</strong> — upload pelos professores com controle de permissão.</li>
             <li>Cada estudante/responsável só pode ver os próprios dados: a verificação deve ser feita <strong>no servidor</strong>.</li>
           </ul>
           <p class="text-muted" style="margin:0">Detalhes em <code>backend/README.md</code>.</p>
         </section>
-      </div>
-    </section>
-    <section class="section section--alt" aria-labelledby="com-alunos-title">
-      <div class="container container--narrow">
-        <div class="section-head"><span class="eyebrow">Comunicados</span><h2 id="com-alunos-title">Comunicados para estudantes</h2></div>
-        <ul class="notice-list" id="alunos-comunicados"></ul>
       </div>
     </section>
   </main>
@@ -2756,6 +2749,10 @@ body:not(.admin-body)::before {
             <p>Use seu e-mail e senha cadastrados na escola.</p>
             <div class="login-status" id="login-status" hidden></div>
             <p class="notice notice--warning"><i class="fa-solid fa-flask" aria-hidden="true"></i> <span><strong>Versão de demonstração:</strong> qualquer e-mail válido e senha com 6+ caracteres entram no perfil escolhido. Nenhuma senha é verificada ou salva. Não use sua senha real.</span></p>
+            <a class="seges-link" href="https://seges.sedu.es.gov.br/users/sign_in" data-href-config="links.seges" target="_blank" rel="noopener noreferrer">
+              <span class="seges-link__icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></span>
+              <span><strong>É estudante?</strong> Notas e boletim ficam no SEGES. <em>Acessar o SEGES <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></em><span class="sr-only"> (abre em nova aba)</span></span>
+            </a>
             <form class="form" id="login-form" novalidate>
               <div class="field">
                 <label class="field__label" for="login-email">E-mail</label>
@@ -2990,6 +2987,14 @@ const SITE_CONFIG = {
     mapaEmbedURL: '',
     // Link "Abrir no Google Maps" (opcional)
     mapaLinkURL: ''
+  },
+
+  // SISTEMAS EXTERNOS usados na Área do Aluno (abrem em nova aba)
+  links: {
+    // SEGES — sistema da Secretaria de Educação do ES, onde ficam as notas/boletim
+    seges: 'https://seges.sedu.es.gov.br/users/sign_in',
+    // Sistema de chamada/frequência da escola
+    frequencia: 'https://chamadaescol-rtzkxa4t.manus.space/'
   },
 
   // REDES SOCIAIS — deixe vazio ('') para ocultar o ícone
@@ -5695,6 +5700,12 @@ const Pages = (() => {
   function sessionBanner(perfil) {
     const el = qs('#session-banner');
     if (!el) return;
+    // Estudantes acessam notas e boletim pelo SEGES (sistema da SEDU-ES)
+    if (perfil === 'aluno' && SITE_CONFIG.links && SITE_CONFIG.links.seges) {
+      el.innerHTML = `<p><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span>Suas notas e o boletim ficam no <strong>SEGES</strong>, o sistema da Secretaria de Educação. Entre com o seu login do SEGES.</span></p>
+        <a class="btn btn--primary btn--sm" href="${escapeHTML(SITE_CONFIG.links.seges)}" target="_blank" rel="noopener noreferrer">Acessar o SEGES <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></a>`;
+      return;
+    }
     const s = Auth.current();
     if (s && s.perfil === perfil) {
       el.innerHTML = `<p><i class="fa-solid fa-user-check" aria-hidden="true"></i> Olá, <strong>${escapeHTML(s.nome)}</strong>. Você está em uma sessão de demonstração.</p>
@@ -5709,7 +5720,6 @@ const Pages = (() => {
   async function alunos() {
     sessionBanner('aluno');
     bindFeatures(qs('#student-cards'));
-    await renderComunicados(qs('#alunos-comunicados'), 'alunos');
     Anim.init(document);
   }
 
@@ -6708,6 +6718,11 @@ const App = (() => {
     Utils.qsa('[data-config]', root).forEach((el) => {
       const value = el.dataset.config.split('.').reduce((o, k) => (o ? o[k] : undefined), SITE_CONFIG);
       if (value !== undefined && value !== null && value !== '') el.textContent = value;
+    });
+    // <a data-href-config="links.seges"> recebe o endereço de SITE_CONFIG.links.seges
+    Utils.qsa('[data-href-config]', root).forEach((el) => {
+      const url = el.dataset.hrefConfig.split('.').reduce((o, k) => (o ? o[k] : undefined), SITE_CONFIG);
+      if (typeof url === 'string' && /^https?:\/\//.test(url)) el.href = url;
     });
     Utils.qsa('[data-asset]', root).forEach((el) => {
       const path = el.dataset.asset;

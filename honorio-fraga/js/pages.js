@@ -298,6 +298,12 @@ const Pages = (() => {
   function sessionBanner(perfil) {
     const el = qs('#session-banner');
     if (!el) return;
+    // Estudantes acessam notas e boletim pelo SEGES (sistema da SEDU-ES)
+    if (perfil === 'aluno' && SITE_CONFIG.links && SITE_CONFIG.links.seges) {
+      el.innerHTML = `<p><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i> <span>Suas notas e o boletim ficam no <strong>SEGES</strong>, o sistema da Secretaria de Educação. Entre com o seu login do SEGES.</span></p>
+        <a class="btn btn--primary btn--sm" href="${escapeHTML(SITE_CONFIG.links.seges)}" target="_blank" rel="noopener noreferrer">Acessar o SEGES <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span class="sr-only"> (abre em nova aba)</span></a>`;
+      return;
+    }
     const s = Auth.current();
     if (s && s.perfil === perfil) {
       el.innerHTML = `<p><i class="fa-solid fa-user-check" aria-hidden="true"></i> Olá, <strong>${escapeHTML(s.nome)}</strong>. Você está em uma sessão de demonstração.</p>
@@ -312,7 +318,6 @@ const Pages = (() => {
   async function alunos() {
     sessionBanner('aluno');
     bindFeatures(qs('#student-cards'));
-    await renderComunicados(qs('#alunos-comunicados'), 'alunos');
     Anim.init(document);
   }
 

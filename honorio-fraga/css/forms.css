@@ -130,3 +130,9 @@
 .login-status p { margin: 0 0 10px; display: flex; gap: 8px; align-items: flex-start; }
 .login-status i { color: var(--c-accent-text); margin-top: 4px; }
 .login-status__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Atalho para o SEGES (sistema de notas da SEDU-ES) na página de login */
+.seges-link { display: flex; gap: 12px; align-items: center; margin: 0 0 18px; padding: 14px 16px; border-radius: var(--radius); border: 1px solid var(--c-line); background: var(--c-primary-soft); color: var(--c-ink); text-decoration: none; font-size: var(--fs-sm); transition: border-color .2s, transform .2s var(--ease); }
+.seges-link:hover { border-color: var(--c-primary-text); color: var(--c-ink); transform: translateY(-1px); }
+.seges-link__icon { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: 11px; background: var(--c-primary); color: var(--c-on-primary); }
+.seges-link em { font-style: normal; font-weight: 700; color: var(--c-primary-text); white-space: nowrap; }

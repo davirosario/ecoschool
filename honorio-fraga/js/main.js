@@ -33,6 +33,11 @@ const App = (() => {
       const value = el.dataset.config.split('.').reduce((o, k) => (o ? o[k] : undefined), SITE_CONFIG);
       if (value !== undefined && value !== null && value !== '') el.textContent = value;
     });
+    // <a data-href-config="links.seges"> recebe o endereço de SITE_CONFIG.links.seges
+    Utils.qsa('[data-href-config]', root).forEach((el) => {
+      const url = el.dataset.hrefConfig.split('.').reduce((o, k) => (o ? o[k] : undefined), SITE_CONFIG);
+      if (typeof url === 'string' && /^https?:\/\//.test(url)) el.href = url;
+    });
     Utils.qsa('[data-asset]', root).forEach((el) => {
       const path = el.dataset.asset;
       if (el.tagName === 'IMG') el.src = Utils.asset(path);

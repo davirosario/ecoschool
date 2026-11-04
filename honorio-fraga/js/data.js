@@ -47,6 +47,14 @@ const SITE_CONFIG = {
     mapaLinkURL: ''
   },
 
+  // SISTEMAS EXTERNOS usados na Área do Aluno (abrem em nova aba)
+  links: {
+    // SEGES — sistema da Secretaria de Educação do ES, onde ficam as notas/boletim
+    seges: 'https://seges.sedu.es.gov.br/users/sign_in',
+    // Sistema de chamada/frequência da escola
+    frequencia: 'https://chamadaescol-rtzkxa4t.manus.space/'
+  },
+
   // REDES SOCIAIS — deixe vazio ('') para ocultar o ícone
   redes: {
     instagram: '',

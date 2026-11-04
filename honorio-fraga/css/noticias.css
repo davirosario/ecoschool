@@ -126,6 +126,7 @@
 .feature__title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--c-ink); }
 .feature__desc { font-size: var(--fs-sm); color: var(--c-muted); margin: 0; }
 .feature__tag { position: absolute; top: 18px; right: 18px; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--c-warning-soft); color: var(--c-warning); }
+.feature__tag--ext { background: var(--c-primary-soft); color: var(--c-primary-text); }
 .feature__go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 650; font-size: var(--fs-sm); color: var(--c-primary-text); }
 .feature-grid > li { min-width: 0; }
 
