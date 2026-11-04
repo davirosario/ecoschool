@@ -28,7 +28,9 @@ const Anim = (() => {
     if (!items.length) return;
 
     items.forEach((el) => el.setAttribute('data-anim-done', ''));
-    if (reduce) return;
+    // Na prévia (app do Claude, celular, e-mail) o visualizador pode não
+    // avisar a rolagem: nada fica escondido esperando aparecer na tela.
+    if (reduce || window.HF_PREVIEW) return;
 
     if (hasGSAP()) {
       items.forEach((el) => {
@@ -72,7 +74,7 @@ const Anim = (() => {
       const target = Number(el.dataset.count);
       if (!Number.isFinite(target)) return;
       const fmt = (n) => Math.round(n).toLocaleString('pt-BR');
-      if (prefersReducedMotion()) { el.textContent = fmt(target); return; }
+      if (prefersReducedMotion() || window.HF_PREVIEW) { el.textContent = fmt(target); return; }
       if (hasGSAP()) {
         const obj = { v: 0 };
         gsap.to(obj, {
