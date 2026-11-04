@@ -90,6 +90,16 @@
   .grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+/* Área do Aluno: Boletim e Frequência em destaque (2 em cima, 3 embaixo) */
+@media (min-width: 560px) and (max-width: 899.98px) {
+  .feature-grid--student > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 900px) {
+  .feature-grid--student { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .feature-grid--student > li { grid-column: span 2; }
+  .feature-grid--student > li:nth-child(-n+2) { grid-column: span 3; }
+}
+
 /* ---------- ≥ 1240px (desktop: menu horizontal) ---------- */
 @media (min-width: 1240px) {
   .quick__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

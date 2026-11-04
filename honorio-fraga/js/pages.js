@@ -266,11 +266,6 @@ const Pages = (() => {
       <tbody>${[1, 2, 3, 4, 5].map((a) => `<tr><th scope="row">${a}ª</th>${dias.map(() => '<td>[COMPONENTE]</td>').join('')}</tr>`).join('')}</tbody></table></div>`;
   }
 
-  function materiaisHTML() {
-    return `<p class="notice notice--info"><i class="fa-solid fa-server" aria-hidden="true"></i> O envio de materiais pelos professores depende do backend (upload + permissões). Abaixo, um modelo de como a lista aparecerá.</p>
-      <ul class="doc-mini">${['[Material de exemplo 1]', '[Material de exemplo 2]', '[Material de exemplo 3]'].map((m) => `<li><i class="fa-regular fa-file-pdf" aria-hidden="true"></i> ${m} <span class="pill pill--off">Indisponível</span></li>`).join('')}</ul>`;
-  }
-
   async function comunicadosHTML(publico) {
     const l = await API.comunicadosAtivos(publico);
     return `<ul class="notice-list">${l.map(comunicadoItem).join('') || '<li>Nenhum comunicado.</li>'}</ul>`;
@@ -280,7 +275,6 @@ const Pages = (() => {
     boletim: { titulo: 'Boletim', html: boletimHTML },
     frequencia: { titulo: 'Frequência', html: frequenciaHTML },
     horarios: { titulo: 'Horários', html: horariosHTML },
-    materiais: { titulo: 'Materiais', html: materiaisHTML },
     'comunicados-alunos': { titulo: 'Comunicados para estudantes', html: () => comunicadosHTML('alunos') },
     'comunicados-responsaveis': { titulo: 'Comunicados para responsáveis', html: () => comunicadosHTML('responsaveis') }
   };

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Área do Aluno | EEEFM Honório Fraga | Colatina - ES</title>
-  <meta name="description" content="Área do Aluno da EEEFM Honório Fraga: boletim (SEGES), frequência, horários, materiais e eventos.">
+  <meta name="description" content="Área do Aluno da EEEFM Honório Fraga: boletim (SEGES), frequência, horários, calendário e eventos.">
   <meta name="theme-color" content="#186be7">
   <meta name="robots" content="index, follow">
   <!-- Open Graph (redes sociais). Ao publicar, troque por URLs absolutas: https://SEU-DOMINIO/... -->
@@ -12,7 +12,7 @@
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="EEEFM Honório Fraga">
   <meta property="og:title" content="Área do Aluno | EEEFM Honório Fraga | Colatina - ES">
-  <meta property="og:description" content="Área do Aluno da EEEFM Honório Fraga: boletim (SEGES), frequência, horários, materiais e eventos.">
+  <meta property="og:description" content="Área do Aluno da EEEFM Honório Fraga: boletim (SEGES), frequência, horários, calendário e eventos.">
   <meta property="og:image" content="assets/images/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
@@ -55,13 +55,13 @@
         </nav>
         <span class="eyebrow" data-reveal>Área do Aluno</span>
         <h1 data-reveal>Área do Aluno</h1>
-        <p data-reveal>Boletim, frequência, horários, materiais e eventos em um só lugar.</p>
+        <p data-reveal>Boletim, frequência, horários, calendário e eventos em um só lugar.</p>
       </div>
     </section>
     <section class="section">
       <div class="container">
         <div class="session-banner" id="session-banner"></div>
-        <ul class="feature-grid" id="student-cards" data-reveal-stagger>
+        <ul class="feature-grid feature-grid--student" id="student-cards" data-reveal-stagger>
           <li><a class="feature feature--external" href="https://seges.sedu.es.gov.br/users/sign_in" data-href-config="links.seges" target="_blank" rel="noopener noreferrer" data-tilt="5"><span class="feature__tag feature__tag--ext">SEGES</span>
             <span class="feature__icon"><i class="fa-solid fa-chart-column" aria-hidden="true"></i></span>
             <span class="feature__title">Boletim</span><span class="feature__desc">Notas e boletim no SEGES, o sistema da Secretaria de Educação (SEDU-ES).</span>
@@ -78,10 +78,6 @@
             <span class="feature__icon"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
             <span class="feature__title">Horários</span><span class="feature__desc">Quadro de aulas da turma.</span>
             <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
-          <li><button type="button" class="feature" data-feature="materiais" data-tilt="5"><span class="feature__tag">Requer backend</span>
-            <span class="feature__icon"><i class="fa-solid fa-book" aria-hidden="true"></i></span>
-            <span class="feature__title">Materiais</span><span class="feature__desc">Conteúdos enviados pelos professores.</span>
-            <span class="feature__go">Abrir <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span></button></li>
           <li><a class="feature" href="eventos.html" data-tilt="5">
             <span class="feature__icon"><i class="fa-solid fa-star" aria-hidden="true"></i></span>
             <span class="feature__title">Eventos</span><span class="feature__desc">Atividades e eventos da escola.</span>
@@ -92,7 +88,6 @@
           <ul>
             <li><strong>Boletim</strong> abre o SEGES e <strong>Frequência</strong> abre o sistema de chamada. Os endereços ficam em <code>js/data.js</code> (<code>SITE_CONFIG.links</code>).</li>
             <li><strong>Login próprio do site</strong> (se um dia for necessário) depende de backend — <code>POST /api/auth/login</code>.</li>
-            <li><strong>Materiais</strong> — upload pelos professores com controle de permissão.</li>
             <li>Cada estudante/responsável só pode ver os próprios dados: a verificação deve ser feita <strong>no servidor</strong>.</li>
           </ul>
           <p class="text-muted" style="margin:0">Detalhes em <code>backend/README.md</code>.</p>
