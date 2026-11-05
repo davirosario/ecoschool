@@ -13,13 +13,11 @@ const Layout = (() => {
   const NAV_ITEMS = [
     { href: 'index.html', label: 'Início', pages: ['home'] },
     { href: 'escola.html', label: 'A Escola', pages: ['escola', 'equipe'] },
-    { href: 'ensino.html', label: 'Ensino', pages: ['ensino'] },
     { href: 'noticias.html', label: 'Notícias', pages: ['noticias', 'noticia'] },
     { href: 'eventos.html', label: 'Eventos', pages: ['eventos'] },
     { href: 'projetos.html', label: 'Projetos', pages: ['projetos'] },
     { href: 'alunos.html', label: 'Alunos', pages: ['alunos'] },
     { href: 'responsaveis.html', label: 'Responsáveis', pages: ['responsaveis'] },
-    { href: 'documentos.html', label: 'Documentos', pages: ['documentos'] },
     { href: 'contato.html', label: 'Contato', pages: ['contato', 'ouvidoria'] }
   ];
 
